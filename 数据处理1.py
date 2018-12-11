@@ -52,9 +52,9 @@ Electrical       1459 non-null object
 2ndFlrSF         1460 non-null int64
 LowQualFinSF     1460 non-null int64
 GrLivArea        1460 non-null int64
-BsmtFullBath     1460 non-null int64
+Bsmtall_dataBath     1460 non-null int64
 BsmtHalfBath     1460 non-null int64
-FullBath         1460 non-null int64
+all_dataBath         1460 non-null int64
 HalfBath         1460 non-null int64
 BedroomAbvGr     1460 non-null int64
 KitchenAbvGr     1460 non-null int64
@@ -100,5 +100,8 @@ all_data = pd.concat([train, test], ignore_index=False)
 cols=["MasVnrArea", "BsmtUnfSF", "TotalBsmtSF", "GarageCars", "BsmtFinSF2", "BsmtFinSF1", "GarageArea"]
 for x in cols:
     all_data[x].fillna(0, inplace = True)
+all_data['LotFrontage']=all_data.groupby(['LotArea','Neighborhood'])['LotFrontage'].transform(lambda x: x.fillna(x.median()))
+# print all_data.info()
 
-print all_data.info()
+# print all_data.groupby('MSSubClass')[['SalePrice']].agg(['mean', 'median', 'count'])
+all_data.SalePrice.hist()
