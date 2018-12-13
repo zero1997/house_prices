@@ -82,11 +82,9 @@ plt.title("Bagging")
 plt.savefig("Bagging.png")
 plt.show()
 '''
+
 bg = BaggingRegressor(n_estimators=25, base_estimator=Ridge(15))
 bg.fit(X_train, y_train)
-
 y_final = np.expm1(bg.predict(X_test))
-
 submission = pd.DataFrame(data = {'Id': test.index, 'SalePrice': y_final})
-
 submission.to_csv("submission.csv", index=False)
